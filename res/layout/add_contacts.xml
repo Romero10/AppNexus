@@ -2,13 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="280px">
 
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="Name"
             android:ems="10"
             android:id="@+id/editText"/>
     <EditText
@@ -17,9 +16,22 @@
             android:inputType="phone"
             android:ems="10"
             android:id="@+id/editText2"/>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="150px" android:weightSum="1">
     <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="380px"
+            android:layout_height="100px"
             android:text="Add"
-            android:id="@+id/button2"/>
+            android:id="@+id/button2"
+            android:drawableLeft="@drawable/ic_action_add2"/>
+    <Button
+            android:layout_width="380px"
+            android:layout_height="100px"
+            android:text="Cancel"
+            android:id="@+id/button3"
+            android:drawableLeft="@drawable/ic_action_cancel"/>
+    </LinearLayout>
 </LinearLayout>
