@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:id="@+id/Form" android:weightSum="1">
+    <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="446dp"
+            android:id="@+id/listView"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add contact"
+            android:id="@+id/button" android:longClickable="true" android:focusable="false" android:enabled="true"
+            android:layout_marginTop="25dp"/>
+    <Button android:layout_width="120dp" android:layout_height="wrap_content" android:text="Cancel"
+            android:id="@+id/button3" android:longClickable="true" android:focusable="false" android:enabled="true"
+            android:layout_gravity="right" android:layout_marginTop="-49dp"/>
+    <Button android:layout_width="120dp" android:layout_height="wrap_content" android:text="Delete"
+            android:id="@+id/button2" android:longClickable="true" android:focusable="false" android:enabled="true"
+            android:layout_gravity="center_horizontal" android:layout_marginTop="-48dp"/>
+</LinearLayout>
+
