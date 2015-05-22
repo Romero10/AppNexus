@@ -48,35 +48,98 @@ public class AddContact extends Activity {
                         null
                 );
 
-                getBaseContext().getContentResolver();
+                 getBaseContext().getContentResolver();
                  EditText edit2 = (EditText) findViewById(R.id.editText);
                  EditText edit1 = (EditText) findViewById(R.id.editText2);
-                ArrayList<ContentProviderOperation> op = new ArrayList<ContentProviderOperation>();
-                op.add(ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)
-                        .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
-                        .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null)
-                        .build());
+                 String DisplayName = edit2.getText().toString();
+                 String MobileNumber = edit1.getText().toString();
 
-                op.add(ContentProviderOperation.newInsert(RawContacts.CONTENT_URI)
-                        .withValueBackReference(Data.RAW_CONTACT_ID, cursor.getCount())
-                        .withValue(Data.MIMETYPE, StructuredName.CONTENT_ITEM_TYPE)
-                        .withValue(StructuredName.DISPLAY_NAME, edit1.getText().toString())
-                        .build());
+                    ArrayList < ContentProviderOperation > ops = new ArrayList < ContentProviderOperation > ();
 
-                op.add(ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)
-                        .withValueBackReference(Data.RAW_CONTACT_ID, cursor.getCount())
-                        .withValue(Data.MIMETYPE, StructuredName.CONTENT_ITEM_TYPE)
-                        .withValue(Phone.NUMBER, edit2.getText().toString())
-                        .withValue(Phone.TYPE, Phone.TYPE_MOBILE)
-                        .build());
+                    ops.add(ContentProviderOperation.newInsert(
+                            ContactsContract.RawContacts.CONTENT_URI)
+                            .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
+                            .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null)
+                            .build());
 
-                try{
-                    getContentResolver().applyBatch(ContactsContract.AUTHORITY,op);
-                }
-                catch (Exception e){
+                    //------------------------------------------------------ Names
+                    if (DisplayName != null) {
+                        ops.add(ContentProviderOperation.newInsert(
+                                ContactsContract.Data.CONTENT_URI)
+                                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                                .withValue(ContactsContract.Data.MIMETYPE,
+                                        ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+                                .withValue(
+                                        ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME,
+                                        edit2.getText().toString()).build());
+                    }
 
-                }
+                    //------------------------------------------------------ Mobile Number
+                    if (MobileNumber != null) {
+                        ops.add(ContentProviderOperation.
+                                newInsert(ContactsContract.Data.CONTENT_URI)
+                                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                                .withValue(ContactsContract.Data.MIMETYPE,
+                                        ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                                .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, MobileNumber)
+                                .withValue(ContactsContract.CommonDataKinds.Phone.TYPE,
+                                        ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE)
+                                .build());
+                    }
 
+                    //------------------------------------------------------ Home Numbers
+                    /*if (HomeNumber != null) {
+                        ops.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                                .withValue(ContactsContract.Data.MIMETYPE,
+                                        ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                                .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, HomeNumber)
+                                .withValue(ContactsContract.CommonDataKinds.Phone.TYPE,
+                                        ContactsContract.CommonDataKinds.Phone.TYPE_HOME)
+                                .build());
+                    }*/
+
+                    //------------------------------------------------------ Work Numbers
+                   /* if (WorkNumber != null) {
+                        ops.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                                .withValue(ContactsContract.Data.MIMETYPE,
+                                        ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                                .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, WorkNumber)
+                                .withValue(ContactsContract.CommonDataKinds.Phone.TYPE,
+                                        ContactsContract.CommonDataKinds.Phone.TYPE_WORK)
+                                .build());
+                    }*/
+
+                    //------------------------------------------------------ Email
+                   /* if (emailID != null) {
+                        ops.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                                .withValue(ContactsContract.Data.MIMETYPE,
+                                        ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
+                                .withValue(ContactsContract.CommonDataKinds.Email.DATA, emailID)
+                                .withValue(ContactsContract.CommonDataKinds.Email.TYPE, ContactsContract.CommonDataKinds.Email.TYPE_WORK)
+                                .build());
+                    }*/
+
+                    //------------------------------------------------------ Organization
+                   /* if (!company.equals("") && !jobTitle.equals("")) {
+                        ops.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                                .withValue(ContactsContract.Data.MIMETYPE,
+                                        ContactsContract.CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
+                                .withValue(ContactsContract.CommonDataKinds.Organization.COMPANY, company)
+                                .withValue(ContactsContract.CommonDataKinds.Organization.TYPE, ContactsContract.CommonDataKinds.Organization.TYPE_WORK)
+                                .withValue(ContactsContract.CommonDataKinds.Organization.TITLE, jobTitle)
+                                .withValue(ContactsContract.CommonDataKinds.Organization.TYPE, ContactsContract.CommonDataKinds.Organization.TYPE_WORK)
+                                .build());
+                    }*/
+
+                    try {
+                        getContentResolver().applyBatch(ContactsContract.AUTHORITY, ops);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         };
