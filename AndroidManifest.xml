@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddContact"
-                  android:label="@string/add_contact">
+                  android:label="@string/add_contact"
+                  android:theme="@android:style/Theme.Dialog">
         </activity>
     </application>
 </manifest>
