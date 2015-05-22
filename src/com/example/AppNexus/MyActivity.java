@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.Settings;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.*;
 
@@ -27,6 +28,7 @@ public class MyActivity extends Activity {
         Button btnNewContact = (Button) findViewById(R.id.button);
         Button btnCancel = (Button) findViewById(R.id.button3);
 
+
         View.OnClickListener NewContact = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,14 +36,16 @@ public class MyActivity extends Activity {
             }
         };
 
-        btnNewContact.setOnClickListener(NewContact);
-
         View.OnClickListener Cancel = new View.OnClickListener(){
             @Override
         public void onClick(View v){onDestroy();}
         };
 
+        btnNewContact.setOnClickListener(NewContact);
+
         btnCancel.setOnClickListener(Cancel);
+
+
     }
 
     public ArrayList<String> getContacts(Context context) {
@@ -116,7 +120,7 @@ public class MyActivity extends Activity {
     }
 
     public void OpenAddContactForm(){
-        Intent intent = new Intent(MyActivity.this,AddContact.class);
+        Intent intent = new Intent(MyActivity.this, AddContact.class);
         startActivity(intent);
     }
 

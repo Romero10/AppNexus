@@ -3,16 +3,17 @@
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-              android:id="@+id/Form" android:weightSum="1">
+              android:id="@+id/Form_ListView" android:weightSum="1">
     <ListView
             android:layout_width="wrap_content"
             android:layout_height="460dp"
             android:id="@+id/listView"/>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:orientation="horizontal"
                   android:layout_width="800px"
                   android:layout_height="120px"
-                  android:id="@+id/Form1" android:weightSum="1">
+                  android:id="@+id/Form_With_Buttons" android:weightSum="1">
         <Button
                 android:layout_width="260px"
                 android:layout_height="100px"

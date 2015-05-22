@@ -5,6 +5,8 @@ import android.content.ContentProviderOperation;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.provider.ContactsContract.RawContacts;
@@ -12,6 +14,7 @@ import android.provider.ContactsContract.Data;
 import android.provider.ContactsContract.CommonDataKinds.StructuredName;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -26,11 +29,17 @@ public class AddContact extends Activity {
         setContentView(R.layout.add_contacts);
 
         Button btnNewContact = (Button) findViewById(R.id.button2);
+        EditText editName = (EditText) findViewById(R.id.editText);
+        EditText editPhone = (EditText) findViewById(R.id.editText2);
 
         View.OnClickListener btn = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (TextUtils.isEmpty(editName.getText().toString()) || TextUtils.isEmpty(editPhone.getText().toString())){
+                    ShowToast();
+                }
+                else
+                {
                 Cursor cursor = getBaseContext().getContentResolver().query(
                         ContactsContract.Contacts.CONTENT_URI,
                         null,
@@ -68,9 +77,19 @@ public class AddContact extends Activity {
 
                 }
 
+                }
             }
         };
 
-        btnNewContact.setOnClickListener(btn);
+            btnNewContact.setOnClickListener(btn);
+
+    }
+
+    public void ShowToast(){
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Заполните все поля!",
+                Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 }
